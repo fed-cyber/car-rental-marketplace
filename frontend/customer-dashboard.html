@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My bookings — RoadShare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="brand">Road<span>Share</span></a>
+      <div class="nav-links" id="navLinks"></div>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <h1>My bookings</h1>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="active">Active & pending</button>
+      <button class="tab-btn" data-tab="past">Past rentals</button>
+    </div>
+
+    <section id="tab-active" class="tab-panel active">
+      <div id="activeBookings"></div>
+    </section>
+
+    <section id="tab-past" class="tab-panel">
+      <div id="pastBookings"></div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="reviewModal" hidden>
+    <div class="modal-box">
+      <h3>Leave a review</h3>
+      <form id="reviewForm">
+        <input type="hidden" id="reviewBookingId">
+        <input type="hidden" id="reviewCarId">
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <select id="rating" required>
+            <option value="5">5 - Excellent</option>
+            <option value="4">4 - Good</option>
+            <option value="3">3 - Average</option>
+            <option value="2">2 - Below average</option>
+            <option value="1">1 - Poor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="comment">Comment</label>
+          <textarea id="comment" rows="3"></textarea>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button type="submit" class="btn btn-primary">Submit review</button>
+          <button type="button" class="btn btn-outline" id="closeModal">Cancel</button>
+        </div>
+        <p class="form-error" id="reviewError"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/customer.js"></script>
+</body>
+</html>
