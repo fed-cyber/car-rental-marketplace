@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const requestLogger = require("./middleware/logger");
 const authRoutes = require("./routes/authRoutes");
+const carRoutes = require("./routes/carRoutes");
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(requestLogger);
 
 app.use("/api/auth", authRoutes);
+app.use("/api/cars", carRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
