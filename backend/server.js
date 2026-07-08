@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const bookingRoutes = require("./routes/bookingRoutes");
 const requestLogger = require("./middleware/logger");
 const authRoutes = require("./routes/authRoutes");
 const carRoutes = require("./routes/carRoutes");
@@ -13,6 +14,7 @@ app.use(requestLogger);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/cars", carRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
