@@ -1,0 +1,264 @@
+/* ============ Design tokens ============ */
+:root {
+  --asphalt: #14161C;
+  --asphalt-soft: #23262F;
+  --surface: #EEF0F2;
+  --surface-card: #FFFFFF;
+  --text-dark: #1A1D23;
+  --text-muted: #5B606B;
+  --amber: #F2B705;
+  --amber-dark: #C99400;
+  --teal: #0B6E4F;
+  --red: #C1443C;
+  --border: #D8DBE0;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--surface);
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.01em; }
+
+a { text-decoration: none; color: inherit; }
+
+/* ============ Header / nav ============ */
+.site-header {
+  background: var(--asphalt);
+  color: #fff;
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #fff;
+}
+.brand span { color: var(--amber); }
+
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links a { color: #cfd3da; font-weight: 500; font-size: 0.95rem; }
+.nav-links a:hover { color: #fff; }
+
+.nav-links .btn { padding: 8px 16px; }
+
+/* ============ Buttons ============ */
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn-primary { background: var(--amber); color: var(--asphalt); }
+.btn-primary:hover { background: var(--amber-dark); }
+
+.btn-secondary { background: transparent; border: 1px solid #4A4F5A; color: #fff; }
+.btn-secondary:hover { border-color: #fff; }
+
+.btn-danger { background: var(--red); color: #fff; }
+.btn-teal { background: var(--teal); color: #fff; }
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dark);
+}
+.btn-outline:hover { border-color: var(--asphalt); }
+
+/* ============ Hero ============ */
+.hero {
+  background: var(--asphalt);
+  color: #fff;
+  padding: 60px 24px 90px;
+}
+.hero-inner { max-width: 900px; margin: 0 auto; text-align: left; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  max-width: 700px;
+  margin-bottom: 14px;
+}
+
+.hero-sub {
+  color: #B7BBC4;
+  font-size: 1.05rem;
+  margin-bottom: 30px;
+}
+
+.search-bar {
+  background: var(--surface-card);
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-bar input, .search-bar select {
+  flex: 1;
+  min-width: 140px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+/* ============ Signature motif: lane divider ============ */
+.lane-divider {
+  height: 0;
+  border-top: 3px dashed var(--amber);
+  opacity: 0.5;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ============ Listings ============ */
+.listings-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.result-count {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.car-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.car-card:hover { box-shadow: 0 6px 20px rgba(20,22,28,0.1); transform: translateY(-2px); }
+
+.car-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  background: var(--border);
+}
+
+.car-card-body { padding: 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+
+.car-card-title { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
+.car-card-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+.car-card-price {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--teal);
+  margin-top: auto;
+  font-size: 1rem;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  padding: 2px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+.badge-available { background: rgba(11,110,79,0.12); color: var(--teal); }
+.badge-unavailable { background: rgba(193,68,60,0.12); color: var(--red); }
+.badge-pending { background: rgba(242,183,5,0.15); color: var(--amber-dark); }
+
+.empty-state { color: var(--text-muted); padding: 40px 0; }
+
+/* ============ Footer ============ */
+.site-footer {
+  padding-top: 20px;
+}
+.site-footer p {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 20px 0 40px;
+}
+
+/* ============ Forms (shared across auth/dashboard pages) ============ */
+.form-page {
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 32px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.form-page h1 { font-size: 1.6rem; margin-bottom: 6px; }
+.form-page .form-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; }
+
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 0.88rem; font-weight: 500; margin-bottom: 6px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+.form-error { color: var(--red); font-size: 0.85rem; margin-top: 10px; min-height: 1em; }
+.form-footer-link { margin-top: 18px; font-size: 0.9rem; text-align: center; color: var(--text-muted); }
+.form-footer-link a { color: var(--amber-dark); font-weight: 600; }
+
+/* ============ Responsive ============ */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 1.9rem; }
+  .search-bar { flex-direction: column; }
+  .navbar { flex-direction: column; gap: 10px; }
+}

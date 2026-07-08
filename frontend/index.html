@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoadShare — Find your next ride</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="brand">Road<span>Share</span></a>
+      <div class="nav-links" id="navLinks">
+        <!-- js/index.js will populate this based on login state -->
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Peer-to-peer car rental</p>
+      <h1>Someone nearby has the car you need.</h1>
+      <p class="hero-sub">Search by location, price, and vehicle type. Book directly from the owner.</p>
+
+      <form class="search-bar" id="searchForm">
+        <input type="text" id="searchLocation" placeholder="Location (e.g. Addis Ababa)">
+        <select id="searchType">
+          <option value="">Any vehicle type</option>
+          <option value="sedan">Sedan</option>
+          <option value="suv">SUV</option>
+          <option value="truck">Truck</option>
+          <option value="van">Van</option>
+          <option value="coupe">Coupe</option>
+          <option value="convertible">Convertible</option>
+          <option value="hatchback">Hatchback</option>
+        </select>
+        <input type="number" id="searchMaxPrice" placeholder="Max price/day">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="lane-divider" aria-hidden="true"></div>
+
+  <main class="listings-section">
+    <div class="section-heading">
+      <h2>Available cars</h2>
+      <span id="resultCount" class="result-count"></span>
+    </div>
+
+    <div class="car-grid" id="carGrid">
+      <!-- Car cards injected by js/index.js -->
+      <p class="empty-state" id="emptyState" hidden>No cars match your search. Try widening your filters.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="lane-divider" aria-hidden="true"></div>
+    <p>RoadShare — capstone project, Web Programming II</p>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
