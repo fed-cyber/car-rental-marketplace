@@ -361,6 +361,9 @@ a { text-decoration: none; color: inherit; }
   justify-content: center;
   z-index: 100;
 }
+.modal-overlay[hidden] {
+  display: none;
+}
 
 .modal-box {
   background: var(--surface-card);
