@@ -59,6 +59,7 @@ async function getActiveBookingsForCustomer(customerId) {
   const result = await pool.query(
     `SELECT bookings.*, cars.make, cars.model
      FROM bookings
+     JOIN cars ON bookings.car_id = cars.id
      WHERE bookings.customer_id = $1 AND bookings.status IN ('pending', 'approved')
      ORDER BY bookings.created_at DESC`,
     [customerId]
