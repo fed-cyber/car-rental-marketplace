@@ -55,10 +55,9 @@ async function getMyCars(req, res) {
 
 async function updateCar(req, res) {
   try {
-    const { isAvailable } = req.body;
-    const updated = await carModel.updateCarAvailability(req.params.id, req.user.id, isAvailable);
+    const updated = await carModel.updateCar(req.params.id, req.user.id, req.body);
     if (!updated) {
-      return res.status(404).json({ message: "Car not found or you do not own this listing" });
+      return res.status(404).json({ message: "Car not found, you do not own this listing, or no fields were provided" });
     }
     res.json(updated);
   } catch (err) {

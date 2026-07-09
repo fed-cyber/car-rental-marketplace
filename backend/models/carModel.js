@@ -50,11 +50,34 @@ async function findCarsByOwner(ownerId) {
   return result.rows;
 }
 
-async function updateCarAvailability(id, ownerId, isAvailable) {
-  const result = await pool.query(
-    `UPDATE cars SET is_available = $1 WHERE id = $2 AND owner_id = $3 RETURNING *`,
-    [isAvailable, id, ownerId]
-  );
+async function updateCar(id, ownerId, data) {
+  const fields = [];
+  const values = [];
+  let paramIndex = 1;
+
+  if (data.make !== undefined) { fields.push(`make = $${paramIndex++}`); values.push(data.make); }
+  if (data.model !== undefined) { fields.push(`model = $${paramIndex++}`); values.push(data.model); }
+  if (data.year !== undefined) { fields.push(`year = $${paramIndex++}`); values.push(data.year); }
+  if (data.vehicleType !== undefined) { fields.push(`vehicle_type = $${paramIndex++}`); values.push(data.vehicleType); }
+  if (data.pricePerDay !== undefined) { fields.push(`price_per_day = $${paramIndex++}`); values.push(data.pricePerDay); }
+  if (data.location !== undefined) { fields.push(`location = $${paramIndex++}`); values.push(data.location); }
+  if (data.description !== undefined) { fields.push(`description = $${paramIndex++}`); values.push(data.description); }
+  if (data.imageUrl !== undefined) { fields.push(`image_url = $${paramIndex++}`); values.push(data.imageUrl); }
+  if (data.isAvailable !== undefined) { fields.push(`is_available = $${paramIndex++}`); values.push(data.isAvailable); }
+
+  if (fields.length === 0) {
+    return null;
+  }
+
+  values.push(id, ownerId);
+
+  const query = `
+    UPDATE cars SET ${fields.join(", ")}
+    WHERE id = $${paramIndex++} AND owner_id = $${paramIndex++}
+    RETURNING *
+  `;
+
+  const result = await pool.query(query, values);
   return result.rows[0];
 }
 
@@ -90,7 +113,7 @@ module.exports = {
   searchCars,
   findCarById,
   findCarsByOwner,
-  updateCarAvailability,
+  updateCar,
   softDeleteCar,
   getAllCarsAdmin,
   adminRemoveCar
