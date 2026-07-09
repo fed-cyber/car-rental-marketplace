@@ -1,33 +1,3 @@
-function renderNav() {
-  const navLinks = document.getElementById("navLinks");
-  const user = getCurrentUser();
-
-  if (!user) {
-    navLinks.innerHTML = `
-      <a href="login.html">Log in</a>
-      <a href="register.html" class="btn btn-primary">Sign up</a>
-    `;
-    return;
-  }
-
-  const dashboardMap = {
-    customer: "customer-dashboard.html",
-    owner: "owner-dashboard.html",
-    admin: "admin-dashboard.html"
-  };
-
-  navLinks.innerHTML = `
-    <span>${user.name}</span>
-    <a href="${dashboardMap[user.role]}">Dashboard</a>
-    <a href="#" id="logoutBtn" class="btn btn-secondary">Log out</a>
-  `;
-
-  document.getElementById("logoutBtn").addEventListener("click", (e) => {
-    e.preventDefault();
-    logout();
-  });
-}
-
 function carCardHTML(car) {
   const badgeClass = car.is_available ? "badge-available" : "badge-unavailable";
   const badgeText = car.is_available ? "Available" : "Unavailable";
