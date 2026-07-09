@@ -34,7 +34,14 @@ function ownerCarCardHTML(car) {
         <span class="badge ${badgeClass}">${badgeText}</span>
         <div class="car-card-title">${car.make} ${car.model} (${car.year})</div>
         <div class="car-card-meta">${car.location} · $${car.price_per_day}/day</div>
-        <div class="list-row-actions" style="margin-top:8px">
+        <div class="list-row-actions" style="margin-top:8px; flex-wrap: wrap;">
+          <button class="btn btn-outline edit-car"
+            data-id="${car.id}" data-make="${car.make}" data-model="${car.model}"
+            data-year="${car.year}" data-type="${car.vehicle_type}" data-price="${car.price_per_day}"
+            data-location="${car.location}" data-image="${car.image_url || ""}"
+            data-description="${(car.description || "").replace(/"/g, "&quot;")}">
+            Edit
+          </button>
           <button class="btn btn-outline toggle-availability" data-id="${car.id}" data-available="${car.is_available}">
             ${car.is_available ? "Mark unavailable" : "Mark available"}
           </button>
@@ -70,28 +77,47 @@ function attachListingActions() {
       }
     });
   });
+
+  document.querySelectorAll(".edit-car").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.getElementById("editCarId").value = btn.dataset.id;
+      document.getElementById("editMake").value = btn.dataset.make;
+      document.getElementById("editModel").value = btn.dataset.model;
+      document.getElementById("editYear").value = btn.dataset.year;
+      document.getElementById("editVehicleType").value = btn.dataset.type;
+      document.getElementById("editPricePerDay").value = btn.dataset.price;
+      document.getElementById("editLocation").value = btn.dataset.location;
+      document.getElementById("editImageUrl").value = btn.dataset.image;
+      document.getElementById("editDescription").value = btn.dataset.description;
+      document.getElementById("editCarModal").hidden = false;
+    });
+  });
 }
 
-document.getElementById("addCarForm").addEventListener("submit", async (e) => {
+document.getElementById("closeEditModal").addEventListener("click", () => {
+  document.getElementById("editCarModal").hidden = true;
+});
+
+document.getElementById("editCarForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const errorEl = document.getElementById("addCarError");
+  const errorEl = document.getElementById("editCarError");
   errorEl.textContent = "";
 
+  const id = document.getElementById("editCarId").value;
   const payload = {
-    make: document.getElementById("make").value.trim(),
-    model: document.getElementById("model").value.trim(),
-    year: Number(document.getElementById("year").value),
-    vehicleType: document.getElementById("vehicleType").value,
-    pricePerDay: Number(document.getElementById("pricePerDay").value),
-    location: document.getElementById("location").value.trim(),
-    imageUrl: document.getElementById("imageUrl").value.trim(),
-    description: document.getElementById("description").value.trim()
+    make: document.getElementById("editMake").value.trim(),
+    model: document.getElementById("editModel").value.trim(),
+    year: Number(document.getElementById("editYear").value),
+    vehicleType: document.getElementById("editVehicleType").value,
+    pricePerDay: Number(document.getElementById("editPricePerDay").value),
+    location: document.getElementById("editLocation").value.trim(),
+    imageUrl: document.getElementById("editImageUrl").value.trim(),
+    description: document.getElementById("editDescription").value.trim()
   };
 
   try {
-    await api.post("/cars", payload, true);
-    e.target.reset();
-    document.querySelector('[data-tab="listings"]').click();
+    await api.put(`/cars/${id}`, payload, true);
+    document.getElementById("editCarModal").hidden = true;
     loadMyListings();
   } catch (err) {
     errorEl.textContent = err.message;
