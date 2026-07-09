@@ -94,6 +94,32 @@ function attachListingActions() {
   });
 }
 
+document.getElementById("addCarForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const errorEl = document.getElementById("addCarError");
+  errorEl.textContent = "";
+
+  const payload = {
+    make: document.getElementById("make").value.trim(),
+    model: document.getElementById("model").value.trim(),
+    year: Number(document.getElementById("year").value),
+    vehicleType: document.getElementById("vehicleType").value,
+    pricePerDay: Number(document.getElementById("pricePerDay").value),
+    location: document.getElementById("location").value.trim(),
+    imageUrl: document.getElementById("imageUrl").value.trim(),
+    description: document.getElementById("description").value.trim()
+  };
+
+  try {
+    await api.post("/cars", payload, true);
+    e.target.reset();
+    document.querySelector('[data-tab="listings"]').click();
+    loadMyListings();
+  } catch (err) {
+    errorEl.textContent = err.message;
+  }
+});
+
 document.getElementById("closeEditModal").addEventListener("click", () => {
   document.getElementById("editCarModal").hidden = true;
 });
